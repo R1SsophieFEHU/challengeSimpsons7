@@ -10,12 +10,8 @@ class SimpsonsQuoteCard extends React.Component {
         quote: "",
     };    
   }
-    //this.getCharacter = this.getCharacter.bind(this);
-    // this.componentDidMount = this.componentDidMount.bind(this);
-    // }
 
-
-  componentDidMount=() =>{
+  charactersAPI=() =>{
     axios.get('https://quests.wilders.dev/simpsons-quotes/quotes')
       .then(response => {
         this.setState({
@@ -41,12 +37,12 @@ class SimpsonsQuoteCard extends React.Component {
                 <cite>{this.state.character}</cite>
             </figcaption>
             </figure>
-            <button type="button" onClick={this.componentDidMount}>Get new quote</button>
+            <button type="button" onClick={this.charactersAPI}>Get new quote</button>
 
         </div>    
     );
   }
-  }
+}
 
 
 export default SimpsonsQuoteCard;
