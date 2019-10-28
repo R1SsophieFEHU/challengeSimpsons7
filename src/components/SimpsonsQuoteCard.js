@@ -1,23 +1,52 @@
 import React from 'react';
+import axios from 'axios';
+
+class SimpsonsQuoteCard extends React.Component {
+  constructor (props){
+    super(props);
+    this.state = {
+        image : "",
+        character :"",
+        quote: "",
+    };    
+  }
+    //this.getCharacter = this.getCharacter.bind(this);
+    // this.componentDidMount = this.componentDidMount.bind(this);
+    // }
 
 
-function SimpsonsQuoteCard ({character}) {
+  componentDidMount=() =>{
+    axios.get('https://quests.wilders.dev/simpsons-quotes/quotes')
+      .then(response => {
+        this.setState({
+          image: response.data[0].image,
+          character : response.data[0].character,
+          quote : response.data[0].quote,
+        });
+      });
+  };
+
+  render () {
     return (
         <div>
             <figure className="QuoteCard">
-            <img
-            src={character[0] && character[0].image}
-            alt= {`la tete de ${character}`}
-            />
+                <img
+                src={this.state.image}
+                alt= {`la tete de ${this.state.character}`}
+                />
             <figcaption>
-            <blockquote>
-                {character[0] && character[0].quote}
-            </blockquote>
-            <cite>{character[0] && character[0].character}</cite>
+                <blockquote>
+                    {this.state.quote}
+                </blockquote>
+                <cite>{this.state.character}</cite>
             </figcaption>
             </figure>
-        </div>
+            <button type="button" onClick={this.componentDidMount}>Get new quote</button>
+
+        </div>    
     );
-}
+  }
+  }
+
 
 export default SimpsonsQuoteCard;
